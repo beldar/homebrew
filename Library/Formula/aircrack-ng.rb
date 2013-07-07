@@ -3,7 +3,7 @@ require 'formula'
 class AircrackNg < Formula
   homepage 'http://aircrack-ng.org/'
   url 'http://download.aircrack-ng.org/aircrack-ng-1.2-beta1.tar.gz'
-  sha1 '16eed1a8cf06eb8274ae382150b56589b23adf77'
+  sha1 '928b327ff47a31891a0edfdc1dc6a80914336458'
 
   # Remove root requirement from OUI update script. See:
   # https://github.com/mxcl/homebrew/pull/12755
