@@ -5,12 +5,6 @@ class AircrackNg < Formula
   url 'http://download.aircrack-ng.org/aircrack-ng-1.2-beta1.tar.gz'
   sha1 '928b327ff47a31891a0edfdc1dc6a80914336458'
 
-  # Remove root requirement from OUI update script. See:
-  # https://github.com/mxcl/homebrew/pull/12755
-  def patches
-    DATA
-  end
-
   def install
     # Force i386, otherwise you get errors:
     #  sha1-sse2.S:190:32-bit absolute addressing is not supported for x86-64
@@ -19,11 +13,6 @@ class AircrackNg < Formula
       ENV.remove compiler_flag, "-arch x86_64"
       ENV.append compiler_flag, "-arch i386"
     end
-
-    # Fix incorrect OUI url
-    inreplace "scripts/airodump-ng-oui-update",
-      "http://standards.ieee.org/regauth/oui/oui.txt",
-      "http://standards.ieee.org/develop/regauth/oui/oui.txt"
 
     system "make", "CC=#{ENV.cc}"
     system "make", "prefix=#{prefix}", "mandir=#{man1}", "install"
@@ -36,12 +25,6 @@ class AircrackNg < Formula
 end
 
 __END__
---- a/scripts/airodump-ng-oui-update
-+++ b/scripts/airodump-ng-oui-update
-@@ -7,25 +7,6 @@
- OUI_PATH="/usr/local/etc/aircrack-ng"
- AIRODUMP_NG_OUI="${OUI_PATH}/airodump-ng-oui.txt"
- OUI_IEEE="${OUI_PATH}/oui.txt"
 -USERID=""
 -
 -
